@@ -1,5 +1,5 @@
 /* ========================================================
-   VØID Studio — Main JavaScript
+   VØID — Main JavaScript
    Shared across all pages
    ======================================================== */
 
@@ -11,17 +11,22 @@
   const cursorRing = document.getElementById('cursorRing');
 
   if (cursor && cursorRing && window.innerWidth > 768) {
-    let mx = -100, my = -100;
-    let rx = -100, ry = -100;
+    let mx = -999, my = -999;
+    let rx = -999, ry = -999;
     let isHovered = false;
+    let hasMoved = false;
 
     document.addEventListener('mousemove', e => {
       mx = e.clientX;
       my = e.clientY;
       cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
+      if (!hasMoved) {
+        hasMoved = true;
+        cursor.style.opacity = '1';
+        cursorRing.style.opacity = '1';
+      }
     });
 
-    // Smooth ring follow
     function animateRing() {
       rx += (mx - rx) * 0.12;
       ry += (my - ry) * 0.12;
@@ -31,7 +36,6 @@
     }
     animateRing();
 
-    // Hover effect on interactive elements
     const hoverTargets = 'a, button, .service-card, .work-card, .process-step, [data-hover]';
     document.addEventListener('mouseover', e => {
       if (e.target.closest(hoverTargets)) {
@@ -121,18 +125,31 @@
   }
 
   /* ── SCROLL REVEAL ── */
-  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-  if (revealEls.length) {
-    const revealObserver = new IntersectionObserver(entries => {
+  let revealObserver;
+
+  function setupReveal() {
+    revealObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
           revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach(el => revealObserver.observe(el));
+    }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+      if (!el.classList.contains('visible')) revealObserver.observe(el);
+    });
   }
+
+  setupReveal();
+
+  /* Expose global so inline scripts can call after dynamic injection */
+  window.reObserveReveal = function () {
+    document.querySelectorAll('.reveal:not(.visible), .reveal-left:not(.visible), .reveal-right:not(.visible)').forEach(el => {
+      revealObserver.observe(el);
+    });
+  };
 
   /* ── COUNTER ANIMATION ── */
   function animateCounter(el) {
@@ -146,7 +163,6 @@
     function update(now) {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       current = target * eased;
       el.textContent = current.toFixed(decimals) + suffix;
@@ -170,11 +186,9 @@
   /* ── PAGE TRANSITIONS ── */
   const overlay = document.querySelector('.page-transition');
   if (overlay) {
-    // Animate out on load (slide up)
     overlay.classList.add('leaving');
     setTimeout(() => overlay.classList.remove('leaving'), 600);
 
-    // Intercept local link clicks
     document.querySelectorAll('a[href]').forEach(link => {
       const href = link.getAttribute('href');
       if (!href || href.startsWith('#') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('http')) return;
@@ -190,23 +204,7 @@
   const heroTitle = document.querySelector('.hero-parallax');
   if (heroTitle) {
     window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      heroTitle.style.transform = `translateY(${y * 0.2}px)`;
-    }, { passive: true });
-  }
-
-  /* ── SMOOTH SECTION INDICATOR ── */
-  const sections = document.querySelectorAll('section[id]');
-  if (sections.length) {
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(sec => {
-        if (window.scrollY >= sec.offsetTop - 200) current = sec.id;
-      });
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
-      });
+      heroTitle.style.transform = `translateY(${window.scrollY * 0.2}px)`;
     }, { passive: true });
   }
 
@@ -218,7 +216,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <span class="logo">VØID</span>
-          <p>Un studio créatif basé à Paris. On construit des choses qui méritent d'être vues.</p>
+          <p>Développeur & créatif freelance basé au Québec. Je construis des choses qui méritent d'être vues.</p>
         </div>
         <div class="footer-col">
           <h4>Navigation</h4>
@@ -233,18 +231,16 @@
           <h4>Contact</h4>
           <ul>
             <li><a href="mailto:hello@void-studio.fr">hello@void-studio.fr</a></li>
-            <li><a href="tel:+33612345678">+33 6 12 34 56 78</a></li>
-            <li><a href="#">12 Rue du Faubourg, Paris</a></li>
+            <li><a href="#">Québec, Canada</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <p class="footer-copy">© ${new Date().getFullYear()} VØID Studio — Tous droits réservés</p>
+        <p class="footer-copy">© ${new Date().getFullYear()} VØID — Tous droits réservés</p>
         <div class="footer-socials">
-          <a href="#">Instagram</a>
-          <a href="#">Behance</a>
-          <a href="#">LinkedIn</a>
           <a href="#">GitHub</a>
+          <a href="#">Discord</a>
+          <a href="#">LinkedIn</a>
         </div>
       </div>
     `;
