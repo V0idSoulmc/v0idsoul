@@ -1,93 +1,121 @@
 /* ========================================================
-   VØID Studio — Data Store
-   Charge les données depuis data.json ou utilise les données
-   inline si fetch n'est pas disponible (fichier local).
+   VØID — Data Store
    ======================================================== */
 
 window.DATA = {
   studio: {
     name: "VØID",
-    tagline: "Nous faisons du bruit.",
+    tagline: "Je fais du bruit.",
     email: "hello@void-studio.fr",
-    phone: "+33 6 12 34 56 78",
-    address: "12 Rue du Faubourg, 75011 Paris",
-    founded: 2019,
-    description: "Un studio créatif qui transforme les idées sauvages en expériences digitales inoubliables."
+    phone: "+1 514 000-0000",
+    address: "Québec, Canada",
+    founded: 2023,
+    description: "Développeur & créatif freelance. Je construis des expériences digitales — seul, mais sans compromis sur la qualité."
   },
   stats: [
-    { number: 87, label: "Projets livrés", suffix: "" },
-    { number: 34, label: "Clients actifs", suffix: "+" },
-    { number: 12, label: "Awards", suffix: "" },
-    { number: 5, label: "Années d'expérience", suffix: "" }
+    { number: 4,  label: "Projets actifs",           suffix: "" },
+    { number: 3,  label: "Années d'expérience",       suffix: "+" },
+    { number: 8,  label: "Technologies maîtrisées",   suffix: "+" },
+    { number: 1,  label: "Personne derrière tout ça", suffix: "" }
   ],
   services: [
     {
       id: "web", num: "01", icon: "◈",
-      title: "Création de site web",
-      short: "Sites qui convertissent, séduisent, et marquent les esprits.",
-      description: "Du site vitrine au e-commerce complet, on conçoit des expériences web qui donnent envie de rester. Design sur-mesure, animations soignées, performance maximale.",
-      features: ["Sites vitrines & landing pages", "E-commerce (Shopify, WooCommerce)", "Blogs & portfolios", "Responsive & mobile-first", "SEO technique intégré", "Animations & micro-interactions"],
-      tech: ["HTML/CSS", "JavaScript", "React", "Next.js", "Shopify", "WordPress"],
+      title: "Sites web & Landing pages",
+      short: "Des sites rapides, beaux et qui convertissent.",
+      description: "Du site vitrine minimaliste à la landing page percutante, je conçois des expériences web qui donnent envie de rester. Design sur-mesure, responsive, performance maximale.",
+      features: ["Sites vitrines & landing pages", "Portfolios & blogs", "Responsive & mobile-first", "SEO technique intégré", "Animations & micro-interactions", "Hébergement & mise en ligne"],
+      tech: ["HTML/CSS", "JavaScript", "React", "Next.js", "Tailwind", "WordPress"],
       color: "#b8ff57"
     },
     {
       id: "code", num: "02", icon: "⟨/⟩",
-      title: "Code du tout",
-      short: "Full-stack, APIs, scripts et automatisations. On code tout.",
-      description: "Applications web complexes, APIs RESTful, automatisations, bots, outils internes — on code ce que les autres osent pas imaginer.",
-      features: ["Applications web full-stack", "APIs & microservices", "Scripts & automatisations", "Bots & outils internes", "Intégrations tierces (Stripe, CRM…)", "Optimisation de performance"],
+      title: "Applications web",
+      short: "Full-stack, APIs, dashboards et outils en ligne.",
+      description: "Applications web complexes, tableaux de bord, APIs, systèmes d'alertes — je code des outils utiles et robustes. Comme STM Alertes ou RH Québec.",
+      features: ["Applications web full-stack", "Tableaux de bord & SaaS", "APIs REST & microservices", "Systèmes de notifications/alertes", "Authentification & gestion utilisateurs", "Intégrations tierces (Stripe, OAuth)"],
       tech: ["Node.js", "Python", "TypeScript", "PostgreSQL", "MongoDB", "Docker"],
       color: "#57c8ff"
     },
     {
-      id: "collab", num: "03", icon: "⊕",
-      title: "En collaboration avec",
-      short: "Partenariats créatifs, co-création et projets à plusieurs mains.",
-      description: "On adore travailler avec d'autres studios ou freelances. On s'intègre à votre équipe et on livre ensemble, sans friction.",
-      features: ["Sous-traitance & white-label", "Renfort d'équipe temporaire", "Co-direction artistique", "Partenariats long terme", "Projets inter-studios", "Consulting & audit créatif"],
-      tech: ["Figma", "Notion", "Slack", "GitHub", "Loom", "Miro"],
+      id: "minecraft", num: "03", icon: "⛏",
+      title: "Serveurs Minecraft",
+      short: "Serveurs custom, plugins Java et configurations.",
+      description: "Création et configuration de serveurs Minecraft sur-mesure. Plugins custom, mécaniques de jeu uniques, expérience joueur optimisée — comme Territoria.",
+      features: ["Configuration serveur (Paper/Spigot)", "Plugins Java custom", "Mécaniques de jeu uniques", "Systèmes de guildes & territoires", "Optimisation performance & TPS", "Panneau admin & monitoring"],
+      tech: ["Java", "Paper/Spigot", "BungeeCord", "MySQL", "Redis", "Linux"],
       color: "#ff9f57"
     },
     {
-      id: "design", num: "04", icon: "✦",
-      title: "Créations graphiques",
-      short: "Identités visuelles, logos et supports qui marquent.",
-      description: "Du logo au système de design complet. On forge des marques qui ne ressemblent à rien d'autre, avec une logique graphique cohérente sur tous les supports.",
-      features: ["Logo & charte graphique", "Identité visuelle complète", "Supports print & digital", "Social media kit", "Pitch decks & présentations", "Illustration & iconographie"],
-      tech: ["Figma", "Illustrator", "Photoshop", "After Effects", "InDesign", "Procreate"],
+      id: "desktop", num: "04", icon: "▣",
+      title: "Applications desktop",
+      short: "Apps multi-plateforme modernes avec Electron.",
+      description: "Applications desktop avec Electron — Windows, Mac, Linux. Interface web, comportement natif. Auto-update, packaging, installation simple. Comme le Territoria Launcher.",
+      features: ["Applications Electron multi-plateforme", "Interface moderne (React/HTML)", "Système d'auto-update", "Installation & packaging (.exe .dmg)", "Communication avec serveurs & APIs", "Notifications système natives"],
+      tech: ["Electron", "Node.js", "React", "JavaScript", "TypeScript", "GitHub Actions"],
       color: "#ff4d6d"
     },
     {
-      id: "motion", num: "05", icon: "▶",
-      title: "Motion & Animation",
-      short: "Animations, vidéos et contenus en mouvement.",
-      description: "Le mouvement au service de votre message. De l'animation d'interface au reel Instagram, on donne vie à vos visuels avec précision.",
-      features: ["Animations d'interface (CSS/JS)", "Motion design & vidéo", "Reels & shorts Instagram/TikTok", "Intro & bumper vidéo", "Animation de logo", "3D & effets visuels"],
-      tech: ["After Effects", "Lottie", "GSAP", "Three.js", "Cinema 4D", "Blender"],
+      id: "design", num: "05", icon: "✦",
+      title: "Créations graphiques",
+      short: "Logos, identités visuelles et supports.",
+      description: "Du logo à la charte graphique complète. Je crée des visuels cohérents qui correspondent à ton projet et à ton image, sur tous les supports.",
+      features: ["Logo & identité visuelle", "Bannières & assets digitaux", "Supports pour réseaux sociaux", "Design d'interface (UI/UX)", "Icônes & illustrations", "Pitch decks & présentations"],
+      tech: ["Figma", "Illustrator", "Photoshop", "After Effects", "Canva", "Procreate"],
       color: "#c457ff"
     },
     {
       id: "maintenance", num: "06", icon: "⟳",
       title: "Maintenance & Support",
       short: "Suivi continu, mises à jour et tranquillité d'esprit.",
-      description: "Après la livraison, on reste là. Mises à jour, corrections, évolutions et hébergement managé — votre site tourne, on veille.",
-      features: ["Hébergement & nom de domaine", "Mises à jour de sécurité", "Backups automatiques", "Monitoring de performance", "Support email & téléphone", "Évolutions & nouvelles features"],
-      tech: ["Vercel", "Cloudflare", "Netlify", "AWS", "GitHub Actions", "Sentry"],
+      description: "Après la livraison, je reste disponible. Mises à jour régulières, corrections de bugs, nouvelles fonctionnalités — ton projet continue d'évoluer.",
+      features: ["Mises à jour régulières", "Corrections de bugs rapides", "Backups automatiques", "Monitoring de performance", "Support par message", "Évolutions & nouvelles features"],
+      tech: ["Vercel", "Cloudflare", "GitHub Actions", "Netlify", "AWS", "Sentry"],
       color: "#57ffd4"
     }
   ],
   projects: [
-    { id: 1, title: "Nova Finance", category: "web", tags: ["Branding", "Web Design"], year: 2024, color1: "#1a0533", color2: "#0d1f4d", letter: "N", description: "Refonte complète de l'identité et du site pour une fintech parisienne. Design épuré, animations fluides, taux de conversion x3." },
-    { id: 2, title: "Folia Studio", category: "design", tags: ["Identité visuelle", "Print"], year: 2024, color1: "#001a0d", color2: "#0a2020", letter: "F", description: "Création de l'identité visuelle complète pour un studio d'architecture végétale. Logo, charte, supports print." },
-    { id: 3, title: "Kōdo Platform", category: "code", tags: ["Full-stack", "UX/UI"], year: 2023, color1: "#1a0a00", color2: "#2a1500", letter: "K", description: "Plateforme SaaS pour la gestion de projets créatifs. Dashboard interactif, API REST, 500+ utilisateurs au lancement." },
-    { id: 4, title: "Vega Records", category: "motion", tags: ["Motion", "Branding"], year: 2023, color1: "#00001f", color2: "#0f002a", letter: "V", description: "Identité visuelle et motion design pour un label électronique berlinois. Visuels pour 12 sorties." },
-    { id: 5, title: "Helix Lab", category: "collab", tags: ["Collaboration", "Web"], year: 2023, color1: "#0a1a00", color2: "#152e00", letter: "H", description: "Co-création avec un studio de Berlin pour un labo biotech. Direction artistique partagée, résultat unique." },
-    { id: 6, title: "Oura Collective", category: "web", tags: ["E-commerce", "Design"], year: 2024, color1: "#1a0015", color2: "#2d0028", letter: "O", description: "Boutique Shopify custom pour un collectif de bijoux artisanaux. Expérience d'achat premium, taux de conversion +45%." }
+    {
+      id: 1, title: "Territoria", category: "minecraft",
+      tags: ["Minecraft", "Serveur", "En cours"],
+      year: "2026-27",
+      color1: "#1a0d00", color2: "#2d1a00",
+      letter: "T",
+      image: "Territoria.png",
+      status: "En cours",
+      description: "Serveur Minecraft immersif avec mécaniques de territoires et guildes. Projet personnel ambitieux, sortie prévue 2026–2027."
+    },
+    {
+      id: 2, title: "Territoria Launcher", category: "desktop",
+      tags: ["Electron", "Desktop", "En cours"],
+      year: 2025,
+      color1: "#0d1a0a", color2: "#152e0a",
+      letter: "L",
+      status: "En cours",
+      description: "Launcher Minecraft custom pour Territoria. Développé avec Electron — installation, mises à jour et connexion au serveur en un clic."
+    },
+    {
+      id: 3, title: "RH Québec", category: "code",
+      tags: ["Dashboard", "SaaS"],
+      year: 2024,
+      color1: "#0a0a2d", color2: "#15153d",
+      letter: "RH",
+      image: "RHQuebec.png",
+      description: "Tableau de bord RH pour jeunes entreprises québécoises. Gestion des employés, documents et paie — simple et accessible."
+    },
+    {
+      id: 4, title: "STM Alertes", category: "web",
+      tags: ["Web App", "Montréal"],
+      year: 2024,
+      color1: "#001a2d", color2: "#002d4d",
+      letter: "S",
+      description: "Application web permettant aux usagers du métro de Montréal de signaler des alertes en temps réel. Simple, communautaire, utile."
+    }
   ],
   process: [
-    { step: "01", title: "Découverte", desc: "Brief approfondi, pas de questions stupides. On comprend votre projet, vos objectifs et vos contraintes avant tout." },
-    { step: "02", title: "Stratégie", desc: "Direction créative et technique. Moodboard, architecture, choix technologiques — tout validé avant la première ligne de code." },
-    { step: "03", title: "Création", desc: "Itérations régulières, feedback loop court. Vous voyez l'avancement en temps réel sur un lien de démo privé." },
-    { step: "04", title: "Livraison", desc: "Mise en ligne, transfert des accès, formation si besoin. On reste disponibles. La vraie fin, c'est votre succès." }
+    { step: "01", title: "Échange",   desc: "Tu m'expliques ton projet, tes objectifs et tes contraintes. Pas de jargon, just clair." },
+    { step: "02", title: "Plan",      desc: "Je définis la direction technique et visuelle. Architecture, technos — tout est validé avant de coder." },
+    { step: "03", title: "Build",     desc: "Je construis et itère régulièrement. Tu peux suivre l'avancement sur un lien de démo privé." },
+    { step: "04", title: "Livraison", desc: "Mise en ligne, transfert des accès, formation si besoin. Je reste disponible pour la suite." }
   ]
 };
