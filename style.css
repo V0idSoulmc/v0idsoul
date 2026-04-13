@@ -53,6 +53,7 @@ body::after {
 
 /* ── CUSTOM CURSOR ── */
 .cursor {
+  opacity: 0;
   position: fixed; top: 0; left: 0;
   width: 10px; height: 10px;
   background: var(--accent);
@@ -63,6 +64,7 @@ body::after {
   transition: transform 0.08s ease, width 0.3s var(--ease-out), height 0.3s var(--ease-out);
 }
 .cursor-ring {
+  opacity: 0;
   position: fixed; top: 0; left: 0;
   width: 36px; height: 36px;
   border: 1px solid rgba(184,255,87,0.5);
@@ -469,5 +471,6 @@ body::after {
   .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
   .divider { margin: 0 24px; }
   body { cursor: auto; }
-  .cursor, .cursor-ring { display: none; }
+  .cursor, .cursor-ring {
+  opacity: 0; display: none; }
 }
