@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VØID Studio — Contact</title>
+<meta name="description" content="Contactez le studio VØID pour démarrer votre projet web ou de design.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .contact-hero { padding: calc(var(--nav-h) + 80px) 48px 60px; position: relative; z-index: 1; }
+  .contact-hero h1 { margin-top: 24px; }
+  .contact-hero p {
+    font-family: var(--font-mono); font-size: 0.88rem;
+    color: var(--muted); line-height: 1.8; max-width: 380px;
+    margin-top: 28px;
+    opacity: 0; animation: fadeUp 0.9s 0.55s var(--ease-out) forwards;
+  }
+
+  /* MAIN LAYOUT */
+  .contact-layout {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: 0; border-top: 1px solid var(--border);
+    position: relative; z-index: 1;
+    min-height: 70vh;
+  }
+
+  /* LEFT: INFO */
+  .contact-info { padding: 80px 52px; border-right: 1px solid var(--border); }
+  .info-block { margin-bottom: 56px; }
+  .info-block-label {
+    font-family: var(--font-mono); font-size: 0.65rem;
+    color: var(--accent); letter-spacing: 0.22em;
+    margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+  }
+  .info-block-label::before { content:''; display:block; width:16px; height:1px; background:var(--accent); }
+  .info-block a, .info-block p {
+    font-size: 1rem; color: var(--white);
+    text-decoration: none; display: block; margin-bottom: 8px;
+    font-family: var(--font-mono); font-size: 0.88rem;
+    transition: color 0.3s;
+  }
+  .info-block a:hover { color: var(--accent); }
+
+  .availability-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1px solid rgba(184,255,87,0.3); padding: 12px 20px;
+    margin-top: 16px;
+  }
+  .avail-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  .avail-text { font-family:var(--font-mono); font-size:0.72rem; color:var(--accent); letter-spacing:0.1em; }
+
+  .social-links { display: flex; flex-direction: column; gap: 12px; }
+  .social-link {
+    font-family: var(--font-mono); font-size: 0.82rem;
+    color: var(--muted); text-decoration: none;
+    display: flex; align-items: center; gap: 12px;
+    transition: all 0.3s;
+  }
+  .social-link::before { content:'↗'; font-size:0.7rem; opacity:0; transform:translateX(-4px); transition:all 0.3s; }
+  .social-link:hover { color: var(--white); }
+  .social-link:hover::before { opacity:1; transform:translateX(0); }
+
+  /* RIGHT: FORM */
+  .contact-form-wrap { padding: 80px 52px; background: var(--bg2); }
+  .form-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+  .form-subtitle { font-family:var(--font-mono); font-size:0.78rem; color:var(--muted); margin-bottom: 48px; }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group.full { grid-column: 1/-1; }
+  .form-label { font-family:var(--font-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.15em; text-transform:uppercase; }
+  .form-input, .form-select, .form-textarea {
+    background: var(--bg); border: 1px solid var(--muted2);
+    color: var(--white); font-family: var(--font-mono); font-size: 0.85rem;
+    padding: 16px 18px; outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 100%;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(184,255,87,0.08);
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: var(--muted); }
+  .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a4a5a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 16px center; background-size:12px; cursor:pointer; }
+  .form-select option { background: var(--bg2); }
+  .form-textarea { resize: vertical; min-height: 140px; }
+
+  /* Budget selector */
+  .budget-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+  .budget-opt input { display: none; }
+  .budget-opt label {
+    display: block; padding: 12px 8px; text-align: center;
+    font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.05em;
+    border: 1px solid var(--muted2); color: var(--muted);
+    cursor: pointer; transition: all 0.3s;
+  }
+  .budget-opt input:checked + label { border-color: var(--accent); color: var(--accent); background: rgba(184,255,87,0.06); }
+  .budget-opt label:hover { border-color: var(--white); color: var(--white); }
+
+  .form-submit {
+    margin-top: 32px; width: 100%;
+    background: var(--accent); color: var(--bg);
+    border: none; padding: 20px 32px;
+    font-family: var(--font-display); font-size: 0.95rem; font-weight: 700;
+    letter-spacing: 0.04em; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    clip-path: polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+  }
+  .form-submit:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(184,255,87,0.25); }
+  .form-submit.loading { opacity: 0.7; pointer-events: none; }
+  .form-submit .submit-arrow { transition: transform 0.3s; }
+  .form-submit:hover .submit-arrow { transform: translate(4px,-4px); }
+
+  /* Success message */
+  .form-success {
+    display: none; text-align: center; padding: 60px 20px;
+  }
+  .form-success.show { display: block; }
+  .form-success .success-icon { font-size: 3rem; margin-bottom: 20px; }
+  .form-success h3 { font-size: 1.6rem; font-weight: 700; margin-bottom: 12px; }
+  .form-success p { font-family:var(--font-mono); font-size:0.82rem; color:var(--muted); line-height:1.7; }
+
+  /* MAP-LIKE VISUAL */
+  .contact-location {
+    position: relative; z-index: 1;
+    margin: 0; padding: 0;
+    height: 200px; overflow: hidden;
+    background: var(--bg2); border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .location-inner { text-align: center; }
+  .location-pin { font-size: 2rem; animation: float 3s ease-in-out infinite; display:block; margin-bottom:12px; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .location-text { font-family:var(--font-mono); font-size:0.78rem; color:var(--muted); letter-spacing:0.1em; }
+  .location-text strong { color:var(--white); display:block; font-size:0.9rem; margin-bottom:4px; font-weight:400; }
+  .location-grid-bg {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  @media(max-width:1024px){ .contact-layout{grid-template-columns:1fr} .contact-info{border-right:none;border-bottom:1px solid var(--border)} }
+  @media(max-width:768px){ .contact-hero,.contact-info,.contact-form-wrap{padding-left:24px;padding-right:24px} .form-grid{grid-template-columns:1fr} .budget-grid{grid-template-columns:repeat(2,1fr)} }
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="page-transition"></div>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">VØID</a>
+  <div class="nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="services.html">Services</a>
+    <a href="projets.html">Projets</a>
+    <a href="contact.html" class="nav-cta">Démarrer un projet</a>
+  </div>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<nav class="nav-mobile">
+  <a href="index.html">Accueil</a>
+  <a href="services.html">Services</a>
+  <a href="projets.html">Projets</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<div class="page">
+  <!-- HERO -->
+  <section class="contact-hero">
+    <p class="page-hero-tag">◈ CONTACT</p>
+    <h1 class="display-lg">PARLONS-<br><span class="text-accent">EN.</span></h1>
+    <p>On répond à tous les messages sous 24h. Pas de formulaire bateau — parlez-nous vraiment de votre projet.</p>
+  </section>
+
+  <!-- LAYOUT -->
+  <div class="contact-layout">
+    <!-- INFO -->
+    <aside class="contact-info">
+      <div class="info-block reveal">
+        <div class="info-block-label">Disponibilité</div>
+        <div class="availability-badge">
+          <div class="avail-dot"></div>
+          <span class="avail-text">Disponible pour de nouveaux projets</span>
+        </div>
+      </div>
+
+      <div class="info-block reveal" style="transition-delay:0.1s">
+        <div class="info-block-label">Email</div>
+        <a href="mailto:hello@void-studio.fr">hello@void-studio.fr</a>
+      </div>
+
+      <div class="info-block reveal" style="transition-delay:0.15s">
+        <div class="info-block-label">Téléphone</div>
+        <a href="tel:+33612345678">+33 6 12 34 56 78</a>
+        <p style="font-size:0.72rem;color:var(--muted);margin-top:4px">Lun–Ven, 9h–18h</p>
+      </div>
+
+      <div class="info-block reveal" style="transition-delay:0.2s">
+        <div class="info-block-label">Adresse</div>
+        <p>12 Rue du Faubourg Saint-Antoine</p>
+        <p>75011 Paris, France</p>
+      </div>
+
+      <div class="info-block reveal" style="transition-delay:0.25s">
+        <div class="info-block-label">Réseaux</div>
+        <div class="social-links">
+          <a href="#" class="social-link">Instagram</a>
+          <a href="#" class="social-link">Behance</a>
+          <a href="#" class="social-link">LinkedIn</a>
+          <a href="#" class="social-link">GitHub</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- FORM -->
+    <div class="contact-form-wrap reveal-right">
+      <div id="formContainer">
+        <h2 class="form-title">Décrivez votre projet</h2>
+        <p class="form-subtitle">Plus vous nous en dites, mieux on peut vous répondre.</p>
+
+        <form id="contactForm" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="fname">Prénom *</label>
+              <input class="form-input" type="text" id="fname" name="fname" placeholder="Jean" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="lname">Nom *</label>
+              <input class="form-input" type="text" id="lname" name="lname" placeholder="Dupont" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email *</label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="jean@company.fr" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="company">Entreprise</label>
+              <input class="form-input" type="text" id="company" name="company" placeholder="Ma Société">
+            </div>
+            <div class="form-group full">
+              <label class="form-label" for="service">Type de projet *</label>
+              <select class="form-select" id="service" name="service" required>
+                <option value="" disabled selected>Sélectionnez un service…</option>
+                <option value="web">Création de site web</option>
+                <option value="code">Code du tout (app, API, script…)</option>
+                <option value="collab">Collaboration / Partenariat</option>
+                <option value="design">Créations graphiques</option>
+                <option value="motion">Motion & Animation</option>
+                <option value="maintenance">Maintenance & Support</option>
+                <option value="other">Autre / Je ne sais pas encore</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Budget estimé</label>
+              <div class="budget-grid">
+                <div class="budget-opt"><input type="radio" name="budget" id="b1" value="<2k"><label for="b1">&lt; 2 000 €</label></div>
+                <div class="budget-opt"><input type="radio" name="budget" id="b2" value="2-5k"><label for="b2">2 000 – 5 000 €</label></div>
+                <div class="budget-opt"><input type="radio" name="budget" id="b3" value="5-10k"><label for="b3">5 000 – 10 000 €</label></div>
+                <div class="budget-opt"><input type="radio" name="budget" id="b4" value="10-25k"><label for="b4">10 000 – 25 000 €</label></div>
+                <div class="budget-opt"><input type="radio" name="budget" id="b5" value=">25k"><label for="b5">&gt; 25 000 €</label></div>
+                <div class="budget-opt"><input type="radio" name="budget" id="b6" value="unknown"><label for="b6">À définir</label></div>
+              </div>
+            </div>
+            <div class="form-group full">
+              <label class="form-label" for="message">Décrivez votre projet *</label>
+              <textarea class="form-textarea" id="message" name="message" placeholder="Parlez-nous de votre projet, vos objectifs, votre cible, vos délais… Plus vous nous en dites, mieux c'est." required></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="form-submit" id="submitBtn">
+            Envoyer le message
+            <svg class="submit-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 16L16 4M16 4H8M16 4V12" stroke="currentColor" stroke-width="1.5"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon">◈</div>
+        <h3>Message reçu !</h3>
+        <p>On reviendra vers vous sous 24h.<br>En attendant, jetez un oeil à nos projets.</p>
+        <a href="projets.html" class="btn btn-primary" style="margin-top:32px; display:inline-flex">
+          Voir nos projets →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCATION -->
+  <div class="contact-location">
+    <div class="location-grid-bg"></div>
+    <div class="location-inner">
+      <span class="location-pin">◎</span>
+      <div class="location-text">
+        <strong>Paris, France</strong>
+        12 Rue du Faubourg Saint-Antoine, 75011
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer"></footer>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formSuccess = document.getElementById('formSuccess');
+  const formContainer = document.getElementById('formContainer');
+
+  /* Input focus effects */
+  document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(el => {
+    el.addEventListener('focus', () => el.parentElement.classList.add('focused'));
+    el.addEventListener('blur',  () => el.parentElement.classList.remove('focused'));
+  });
+
+  /* Form validation & submit */
+  form && form.addEventListener('submit', e => {
+    e.preventDefault();
+    const required = form.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach(field => {
+      if (!field.value.trim()) {
+        valid = false;
+        field.style.borderColor = 'var(--accent2)';
+        field.addEventListener('input', () => field.style.borderColor = '', { once: true });
+      }
+    });
+    if (!valid) return;
+
+    submitBtn.classList.add('loading');
+    submitBtn.textContent = 'Envoi en cours…';
+
+    // Simulate send (replace with real API call)
+    setTimeout(() => {
+      formContainer.style.opacity = '0';
+      formContainer.style.transform = 'translateY(-20px)';
+      formContainer.style.transition = 'all 0.4s ease';
+      setTimeout(() => {
+        formContainer.style.display = 'none';
+        formSuccess.classList.add('show');
+        formSuccess.style.animation = 'fadeUp 0.6s var(--ease-out) forwards';
+      }, 400);
+    }, 1800);
+  });
+
+  /* Character counter for textarea */
+  const textarea = document.getElementById('message');
+  if (textarea) {
+    const label = textarea.previousElementSibling;
+    textarea.addEventListener('input', () => {
+      const len = textarea.value.length;
+      if (len > 0) label.textContent = `Décrivez votre projet * — ${len} caractères`;
+      else label.textContent = 'Décrivez votre projet *';
+    });
+  }
+</script>
+</body>
+</html>

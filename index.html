@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VØID Studio — Accueil</title>
+<meta name="description" content="Studio créatif parisien. Création de site web, code, design et collaborations.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 48px 80px;
+    position: relative; z-index: 1; overflow: hidden;
+  }
+  .hero-bg-text {
+    position: absolute; bottom: -2vw; left: -1vw;
+    font-size: 30vw; font-weight: 800;
+    color: rgba(255,255,255,0.018); line-height: 1;
+    letter-spacing: -0.05em; pointer-events: none;
+    user-select: none; z-index: 0;
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-tag {
+    font-family: var(--font-mono); font-size: 0.72rem;
+    color: var(--accent); letter-spacing: 0.22em;
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.9s 0.2s var(--ease-out) forwards;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-tag::before { content:''; display:block; width:28px; height:1px; background:var(--accent); }
+  .hero-title {
+    font-size: clamp(5rem, 13vw, 14rem);
+    font-weight: 800; line-height: 0.88; letter-spacing: -0.04em;
+    opacity: 0; animation: fadeUp 0.9s 0.35s var(--ease-out) forwards;
+  }
+  .hero-title .accent { color: var(--accent); }
+  .hero-bottom {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-top: 52px;
+    opacity: 0; animation: fadeUp 0.9s 0.6s var(--ease-out) forwards; gap: 24px;
+  }
+  .hero-desc { font-family:var(--font-mono); font-size:0.85rem; color:var(--muted); line-height:1.8; max-width:320px; }
+  .hero-actions { display:flex; gap:16px; flex-shrink:0; }
+  .hero-scroll {
+    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+    font-family:var(--font-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.2em;
+    display:flex; flex-direction:column; align-items:center; gap:12px;
+    opacity:0; animation: fadeIn 1s 1.2s forwards;
+  }
+  .hero-scroll-line { width:1px; height:60px; background:var(--muted2); position:relative; overflow:hidden; }
+  .hero-scroll-line::after {
+    content:''; position:absolute; top:-100%; width:100%; height:100%; background:var(--accent);
+    animation: scrollLine 2s 1.5s var(--ease-out) infinite;
+  }
+  @keyframes scrollLine { 0%{top:-100%} 100%{top:200%} }
+
+  .services-preview { padding: 100px 48px; }
+  .services-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:56px; }
+  .services-grid-home { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+  .service-card-home {
+    background:var(--bg2); border:1px solid var(--border); padding:44px 36px;
+    transition:all 0.4s var(--ease-out); position:relative; overflow:hidden;
+    text-decoration:none; color:inherit; display:block;
+  }
+  .service-card-home::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; transform:scaleX(0); transform-origin:left; transition:transform 0.4s var(--ease-out); }
+  .service-card-home:hover { background:var(--bg3); transform:translateY(-4px); }
+  .service-card-home:hover::after { transform:scaleX(1); }
+  .sc-num { font-family:var(--font-mono); font-size:0.65rem; color:var(--muted); margin-bottom:28px; display:flex; align-items:center; justify-content:space-between; }
+  .sc-icon { font-size:1.4rem; }
+  .sc-name { font-size:1.25rem; font-weight:700; margin-bottom:12px; }
+  .sc-short { font-family:var(--font-mono); font-size:0.78rem; color:var(--muted); line-height:1.7; }
+  .sc-arrow { margin-top:28px; font-size:1.1rem; opacity:0; transform:translateX(-8px); transition:all 0.3s var(--ease-out); }
+  .service-card-home:hover .sc-arrow { opacity:1; transform:translateX(0); }
+  .sc-c1::after{background:#b8ff57} .sc-c2::after{background:#57c8ff} .sc-c3::after{background:#ff9f57}
+  .sc-c4::after{background:#ff4d6d} .sc-c5::after{background:#c457ff} .sc-c6::after{background:#57ffd4}
+
+  .projects-preview { padding: 0 48px 100px; }
+  .projects-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:40px; }
+  .projects-grid-home { display:grid; grid-template-columns:1.4fr 1fr; grid-template-rows:auto auto; gap:16px; }
+  .proj-card { position:relative; overflow:hidden; text-decoration:none; color:inherit; background:var(--bg2); display:block; }
+  .proj-card-big { grid-row:1/3; min-height:600px; }
+  .proj-card-sm { min-height:280px; }
+  .proj-visual { width:100%; height:100%; display:flex; align-items:center; justify-content:center; transition:transform 0.7s var(--ease-out); }
+  .proj-big-text { font-size:9rem; font-weight:800; color:rgba(255,255,255,0.06); letter-spacing:-0.05em; transition:transform 0.7s var(--ease-out),color 0.4s; }
+  .proj-card:hover .proj-big-text { color:rgba(255,255,255,0.09); transform:scale(1.04); }
+  .proj-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(7,7,13,0.92) 0%,rgba(7,7,13,0.1) 60%); padding:32px; display:flex; flex-direction:column; justify-content:flex-end; opacity:0; transition:opacity 0.4s; }
+  .proj-card:hover .proj-overlay { opacity:1; }
+  .proj-cat { font-family:var(--font-mono); font-size:0.65rem; color:var(--accent); letter-spacing:0.18em; margin-bottom:8px; }
+  .proj-name { font-size:1.6rem; font-weight:700; margin-bottom:8px; }
+  .proj-desc { font-family:var(--font-mono); font-size:0.78rem; color:rgba(240,239,234,0.6); line-height:1.7; }
+  .proj-year { position:absolute; top:24px; right:24px; font-family:var(--font-mono); font-size:0.65rem; color:var(--muted); }
+
+  .cta-section { padding:160px 48px; text-align:center; border-top:1px solid var(--border); }
+  .cta-eyebrow { font-family:var(--font-mono); font-size:0.72rem; color:var(--accent); letter-spacing:0.22em; margin-bottom:32px; display:flex; align-items:center; justify-content:center; gap:16px; }
+  .cta-eyebrow::before,.cta-eyebrow::after { content:''; display:block; width:40px; height:1px; background:var(--accent); }
+  .cta-title { margin-bottom:48px; }
+  .cta-buttons { display:flex; gap:16px; justify-content:center; }
+
+  @media(max-width:1024px){ .services-grid-home{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:768px){
+    .hero{padding:0 24px 64px}
+    .hero-bottom{flex-direction:column;align-items:flex-start}
+    .services-preview,.projects-preview{padding-left:24px;padding-right:24px}
+    .services-grid-home{grid-template-columns:1fr}
+    .services-header{flex-direction:column;gap:24px;align-items:flex-start}
+    .projects-grid-home{grid-template-columns:1fr}
+    .proj-card-big{grid-row:auto;min-height:340px}
+    .cta-section{padding:100px 24px}
+    .cta-buttons{flex-direction:column;align-items:center}
+  }
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="page-transition"></div>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">VØID</a>
+  <div class="nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="services.html">Services</a>
+    <a href="projets.html">Projets</a>
+    <a href="contact.html" class="nav-cta">Démarrer un projet</a>
+  </div>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<nav class="nav-mobile">
+  <a href="index.html">Accueil</a>
+  <a href="services.html">Services</a>
+  <a href="projets.html">Projets</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<div class="page">
+  <section class="hero">
+    <div class="hero-bg-text">VØID</div>
+    <div class="hero-content">
+      <p class="hero-tag">Studio créatif — Paris</p>
+      <h1 class="hero-title hero-parallax">
+        <span class="glitch" data-text="NOUS">NOUS</span><br>
+        FAISONS<br>DU <span class="accent">BRUIT.</span>
+      </h1>
+      <div class="hero-bottom">
+        <p class="hero-desc">Un studio qui transforme les idées sauvages en expériences digitales inoubliables.<br>Du code, du design, et beaucoup de caractère.</p>
+        <div class="hero-actions">
+          <a href="services.html" class="btn btn-primary">Nos services <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 15L15 3M15 3H7M15 3V11" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a href="projets.html" class="btn btn-outline">Voir les projets</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">SCROLL<div class="hero-scroll-line"></div></div>
+  </section>
+
+  <div class="marquee-wrapper">
+    <div class="marquee-track">
+      <span class="marquee-item"><span class="marquee-dot">✦</span> Création de site web</span>
+      <span class="marquee-item"><span class="marquee-dot">✦</span> Code du tout</span>
+      <span class="marquee-item"><span class="marquee-dot">✦</span> En collaboration avec</span>
+      <span class="marquee-item"><span class="marquee-dot">✦</span> Créations graphiques</span>
+      <span class="marquee-item"><span class="marquee-dot">✦</span> Motion & Animation</span>
+      <span class="marquee-item"><span class="marquee-dot">✦</span> Maintenance & Support</span>
+      <span class="marquee-item"><span class="marquee-dot">✦</span> Création de site web</span>
+      <span class="marquee-item"><span class="marquee-dot">✦</span> Code du tout</span>
+      <span class="marquee-item"><span class="marquee-dot">✦</span> En collaboration avec</span>
+      <span class="marquee-item"><span class="marquee-dot">✦</span> Créations graphiques</span>
+      <span class="marquee-item"><span class="marquee-dot">✦</span> Motion & Animation</span>
+      <span class="marquee-item"><span class="marquee-dot">✦</span> Maintenance & Support</span>
+    </div>
+  </div>
+
+  <section class="services-preview">
+    <div class="services-header">
+      <p class="section-label reveal">Ce qu'on fait</p>
+      <a href="services.html" class="btn btn-outline reveal">Tous les services →</a>
+    </div>
+    <div class="services-grid-home" id="servicesGrid"></div>
+  </section>
+
+  <div class="stats-bar reveal">
+    <div class="stat-item"><div class="stat-number" data-target="87" data-suffix="">0</div><div class="stat-label">Projets livrés</div></div>
+    <div class="stat-item"><div class="stat-number" data-target="34" data-suffix="+">0</div><div class="stat-label">Clients actifs</div></div>
+    <div class="stat-item"><div class="stat-number" data-target="12" data-suffix="">0</div><div class="stat-label">Awards remportés</div></div>
+    <div class="stat-item"><div class="stat-number" data-target="5" data-suffix="">0</div><div class="stat-label">Années d'expérience</div></div>
+  </div>
+
+  <section class="projects-preview">
+    <div class="projects-header">
+      <p class="section-label reveal">Projets récents</p>
+      <a href="projets.html" class="btn btn-outline reveal">Voir tout →</a>
+    </div>
+    <div class="projects-grid-home" id="projectsGrid"></div>
+  </section>
+
+  <section class="cta-section">
+    <p class="cta-eyebrow reveal">Prêt à créer quelque chose ?</p>
+    <h2 class="display-lg cta-title reveal">DITES-NOUS<br><span class="text-accent">TOUT.</span></h2>
+    <div class="cta-buttons reveal">
+      <a href="contact.html" class="btn btn-primary">Démarrer un projet <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 15L15 3M15 3H7M15 3V11" stroke="currentColor" stroke-width="1.5"/></svg></a>
+      <a href="mailto:hello@void-studio.fr" class="btn btn-outline">hello@void-studio.fr</a>
+    </div>
+  </section>
+
+  <footer class="footer"></footer>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  const colorClasses = ['sc-c1','sc-c2','sc-c3','sc-c4','sc-c5','sc-c6'];
+  const grid = document.getElementById('servicesGrid');
+  if (grid && window.DATA) {
+    DATA.services.forEach((s, i) => {
+      grid.innerHTML += `<a href="services.html#${s.id}" class="service-card-home ${colorClasses[i]} reveal" style="transition-delay:${(i*0.08).toFixed(2)}s" data-hover>
+        <div class="sc-num"><span>${s.num}</span><span class="sc-icon">${s.icon}</span></div>
+        <h3 class="sc-name">${s.title}</h3>
+        <p class="sc-short">${s.short}</p>
+        <div class="sc-arrow" style="color:${s.color}">→</div></a>`;
+    });
+  }
+  const pgrid = document.getElementById('projectsGrid');
+  if (pgrid && window.DATA) {
+    DATA.projects.slice(0,3).forEach((p, i) => {
+      const big = i === 0;
+      pgrid.innerHTML += `<a href="projets.html" class="proj-card ${big?'proj-card-big':'proj-card-sm'} reveal" style="background:linear-gradient(135deg,${p.color1},${p.color2});transition-delay:${(i*0.1).toFixed(2)}s" data-hover>
+        <div class="proj-visual"><div class="proj-big-text">${p.letter}</div></div>
+        <div class="proj-overlay">
+          <div class="proj-cat">${p.tags.join(' — ')}</div>
+          <h3 class="proj-name">${p.title}</h3>
+          ${big?`<p class="proj-desc">${p.description}</p>`:''}
+        </div>
+        <span class="proj-year">${p.year}</span></a>`;
+    });
+  }
+</script>
+</body>
+</html>
