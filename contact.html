@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VØID Studio — Contact</title>
 <meta name="description" content="Contactez le studio VØID pour démarrer votre projet web ou de design.">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="style.css">
 <style>
   .contact-hero { padding: calc(var(--nav-h) + 80px) 48px 60px; position: relative; z-index: 1; }
   .contact-hero h1 { margin-top: 24px; }
@@ -156,7 +156,7 @@
 <div class="page-transition"></div>
 
 <nav class="nav">
-  <a class="nav-logo" href="index.html">VØID</a>
+  <a class="nav-logo" href="index.html"><img src="Voidsoul.png" alt="VØID" style="height:36px;width:36px;object-fit:contain;vertical-align:middle;margin-right:8px;filter:drop-shadow(0 0 6px rgba(184,255,87,0.4))">VØID</a>
   <div class="nav-links">
     <a href="index.html">Accueil</a>
     <a href="services.html">Services</a>
@@ -194,7 +194,7 @@
 
       <div class="info-block reveal" style="transition-delay:0.1s">
         <div class="info-block-label">Email</div>
-        <a href="mailto:hello@void-studio.fr">hello@void-studio.fr</a>
+        <a href="/cdn-cgi/l/email-protection#aac2cfc6c6c5eadcc5c3ce87d9dedfcec3c584ccd8"><span class="__cf_email__" data-cfemail="9ef6fbf2f2f1dee8f1f7fab3edeaebfaf7f1b0f8ec">[email&#160;protected]</span></a>
       </div>
 
       <div class="info-block reveal" style="transition-delay:0.15s">
@@ -308,8 +308,8 @@
   <footer class="footer"></footer>
 </div>
 
-<script src="js/data.js"></script>
-<script src="js/main.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="data.js"></script>
+<script src="main.js"></script>
 <script>
   const form = document.getElementById('contactForm');
   const submitBtn = document.getElementById('submitBtn');
@@ -356,12 +356,4 @@
   const textarea = document.getElementById('message');
   if (textarea) {
     const label = textarea.previousElementSibling;
-    textarea.addEventListener('input', () => {
-      const len = textarea.value.length;
-      if (len > 0) label.textContent = `Décrivez votre projet * — ${len} caractères`;
-      else label.textContent = 'Décrivez votre projet *';
-    });
-  }
-</script>
-</body>
-</html>
+    textarea.addEventListener
