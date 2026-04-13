@@ -182,11 +182,11 @@
     <div class="services-hero-grid">
       <div class="services-hero-left">
         <p class="page-hero-tag">◈ NOS SERVICES</p>
-        <h1 class="display-lg">CE QU'ON<br><span class="text-accent">SAIT FAIRE.</span></h1>
+        <h1 class="display-lg">CE QUE JE<br><span class="text-accent">SAIS FAIRE.</span></h1>
       </div>
       <div class="services-hero-right reveal-right">
         Six domaines d'expertise, une seule ambition : <strong>créer des choses qui comptent</strong>.<br><br>
-        Que ce soit un site vitrine, une application complexe, une identité visuelle ou un partenariat créatif, on met tout notre savoir-faire au service de votre projet.
+        Que ce soit un site vitrine, une application complexe, une identité visuelle ou un partenariat créatif, je mets tout mon savoir-faire au service de votre projet.
       </div>
     </div>
   </section>
@@ -302,6 +302,7 @@
   });
 
   /* Anchor scroll for service IDs */
+  if (window.reObserveReveal) reObserveReveal();
   if (location.hash) {
     setTimeout(() => {
       const target = document.querySelector(location.hash);
