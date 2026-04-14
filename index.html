@@ -202,14 +202,14 @@
     <h2 class="display-lg cta-title reveal">DIS-MOI<br><span class="text-accent">TOUT.</span></h2>
     <div class="cta-buttons reveal">
       <a href="contact.html" class="btn btn-primary">Démarrer un projet <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 15L15 3M15 3H7M15 3V11" stroke="currentColor" stroke-width="1.5"/></svg></a>
-      <a href="mailto:hello@void-studio.fr" class="btn btn-outline">hello@void-studio.fr</a>
+      <a href="https://github.com/V0idSoulmc" target="_blank" rel="noopener" class="btn btn-outline">GitHub →</a>
     </div>
   </section>
 
   <footer class="footer"></footer>
 </div>
 
-<script src="data.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="data.js"></script>
 <script src="main.js"></script>
 <script>
   const colorClasses = ['sc-c1','sc-c2','sc-c3','sc-c4','sc-c5','sc-c6'];
@@ -236,13 +236,3 @@
         <div class="proj-overlay">
           <div class="proj-cat">${p.tags.join(' — ')}</div>
           <h3 class="proj-name">${p.title}</h3>
-          ${big?`<p class="proj-desc">${p.description}</p>`:''}
-        </div>
-        ${statusHTML}
-        <span class="proj-year">${p.year}</span></a>`;
-    });
-    if (window.reObserveReveal) reObserveReveal();
-  }
-</script>
-</body>
-</html>
