@@ -3,60 +3,154 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VØID — Projets</title>
-<meta name="description" content="Portfolio et réalisations — sites web, apps, serveurs Minecraft, apps desktop.">
+<title>VØID Studio — Services</title>
+<meta name="description" content="Création de site web, code full-stack, design graphique, motion, collaborations et maintenance.">
 <link rel="stylesheet" href="style.css">
 <style>
-  .projects-hero { padding: calc(var(--nav-h) + 80px) 48px 60px; position: relative; z-index: 1; }
-  .projects-hero h1 { margin-top: 24px; }
-  .hero-meta { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 48px; gap: 24px; }
-  .hero-meta p { font-family:var(--font-mono); font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:380px; }
-  .project-count { font-family:var(--font-mono); font-size:0.7rem; color:var(--muted); letter-spacing:0.1em; }
-  .project-count span { font-size:2rem; font-weight:800; color:var(--accent); display:block; line-height:1; }
+  /* ── SERVICES PAGE ── */
+  .services-hero { padding: calc(var(--nav-h) + 80px) 48px 80px; position: relative; z-index: 1; }
+  .services-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: flex-end; }
+  .services-hero-left h1 { margin-top: 24px; }
+  .services-hero-right {
+    font-family: var(--font-mono); font-size: 0.88rem;
+    color: var(--muted); line-height: 1.8;
+    padding-top: 32px;
+  }
+  .services-hero-right strong { color: var(--white); font-weight: 400; }
 
-  .filter-bar { padding: 40px 48px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); position: relative; z-index: 1; flex-wrap: wrap; }
-  .filter-label { font-family:var(--font-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.15em; margin-right:8px; }
-  .filter-btn { font-family: var(--font-mono); font-size: 0.72rem; padding: 10px 20px; letter-spacing: 0.08em; background: transparent; border: 1px solid var(--muted2); color: var(--muted); cursor: pointer; transition: all 0.3s var(--ease-out); }
-  .filter-btn:hover { border-color: var(--white); color: var(--white); }
-  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  /* SERVICE FULL CARDS */
+  .services-full { padding: 80px 48px 120px; }
+  .service-block {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: 0; border: 1px solid var(--border);
+    margin-bottom: 3px; overflow: hidden;
+    transition: border-color 0.4s;
+  }
+  .service-block:hover { border-color: rgba(184,255,87,0.15); }
+  .service-block-left {
+    padding: 64px 52px;
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    position: relative; overflow: hidden;
+  }
+  .service-block-left::before {
+    content: attr(data-num);
+    position: absolute; bottom: -20px; right: -10px;
+    font-size: 9rem; font-weight: 800;
+    color: rgba(255,255,255,0.025);
+    line-height: 1; pointer-events: none;
+  }
+  .service-num-big {
+    font-family: var(--font-mono); font-size: 0.68rem;
+    color: var(--muted); letter-spacing: 0.2em;
+    margin-bottom: 24px;
+  }
+  .service-icon-big { font-size: 2.5rem; margin-bottom: 20px; }
+  .service-title-big { font-size: clamp(1.6rem, 2.5vw, 2.4rem); font-weight: 800; margin-bottom: 16px; line-height: 1.1; }
+  .service-desc-big { font-family: var(--font-mono); font-size: 0.82rem; color: var(--muted); line-height: 1.8; }
+  .service-tech-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+  .service-tech-tag {
+    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em;
+    padding: 6px 12px; border: 1px solid var(--muted2); color: var(--muted);
+    transition: all 0.3s;
+  }
+  .service-block:hover .service-tech-tag { border-color: rgba(184,255,87,0.2); }
+  .service-cta-inline {
+    margin-top: 40px; display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 0.75rem;
+    color: var(--white); text-decoration: none; letter-spacing: 0.08em;
+    transition: gap 0.3s, color 0.3s;
+  }
+  .service-cta-inline:hover { gap: 18px; color: var(--accent); }
 
-  .projects-main { padding: 60px 48px 120px; position: relative; z-index: 1; }
-  .projects-masonry { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .service-block-right { padding: 64px 52px; background: var(--bg2); }
+  .service-block-right h4 {
+    font-family: var(--font-mono); font-size: 0.65rem;
+    color: var(--accent); letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 28px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .service-block-right h4::before { content:''; display:block; width:20px; height:1px; background:var(--accent); }
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .feature-item {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 0; border-bottom: 1px solid var(--border);
+    font-size: 0.95rem; font-weight: 400;
+    transition: padding-left 0.3s var(--ease-out), color 0.3s;
+  }
+  .feature-item:last-child { border-bottom: none; }
+  .service-block:hover .feature-item { padding-left: 4px; }
+  .feature-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    flex-shrink: 0; transition: transform 0.3s;
+  }
+  .service-block:hover .feature-dot { transform: scale(1.5); }
 
-  .pcard { position: relative; overflow: hidden; text-decoration: none; color: inherit; display: block; transition: transform 0.5s var(--ease-out); }
-  .pcard:hover { transform: translateY(-6px); }
-  .pcard-inner { width: 100%; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; position: relative; }
-  .pcard-letter { font-size: 7rem; font-weight: 800; color: rgba(255,255,255,0.07); letter-spacing: -0.05em; transition: transform 0.6s var(--ease-out), color 0.4s; user-select: none; }
-  .pcard:hover .pcard-letter { color: rgba(255,255,255,0.1); transform: scale(1.08); }
-  .pcard-logo { position:absolute; max-width:45%; max-height:55%; object-fit:contain; opacity:0.85; filter:drop-shadow(0 0 24px rgba(0,0,0,0.6)); transition:transform 0.5s var(--ease-out); }
-  .pcard:hover .pcard-logo { transform:scale(1.06); }
-  .pcard-overlay { position: absolute; inset: 0; background: linear-gradient(160deg, transparent 40%, rgba(7,7,13,0.88) 100%); padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; opacity: 0; transition: opacity 0.4s; }
-  .pcard:hover .pcard-overlay { opacity: 1; }
-  .pcard-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
-  .pcard-tag { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.12em; padding:4px 10px; border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.7); }
-  .pcard-title { font-size:1.4rem; font-weight:700; line-height:1.2; }
-  .pcard-desc { font-family:var(--font-mono); font-size:0.72rem; color:rgba(240,239,234,0.55); line-height:1.6; margin-top:8px; }
-  .pcard-year { position:absolute; top:20px; right:20px; font-family:var(--font-mono); font-size:0.62rem; color:rgba(255,255,255,0.3); }
-  .pcard-arrow { position:absolute; top:20px; left:20px; opacity:0; transition:opacity 0.3s,transform 0.3s; font-size:1.1rem; }
-  .pcard:hover .pcard-arrow { opacity:1; transform:translate(4px,-4px); }
-  .pcard-status { position:absolute; bottom:20px; right:20px; font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.12em; padding:4px 10px; background:rgba(184,255,87,0.15); border:1px solid rgba(184,255,87,0.4); color:var(--accent); z-index:2; }
+  /* ACCENT COLOR per service block */
+  .sb-1 .feature-dot { background: #b8ff57; }
+  .sb-2 .feature-dot { background: #57c8ff; }
+  .sb-3 .feature-dot { background: #ff9f57; }
+  .sb-4 .feature-dot { background: #ff4d6d; }
+  .sb-5 .feature-dot { background: #c457ff; }
+  .sb-6 .feature-dot { background: #57ffd4; }
+  .sb-1 .service-cta-inline:hover, .sb-1 .service-num-big { color: #b8ff57; }
+  .sb-2 .service-cta-inline:hover, .sb-2 .service-num-big { color: #57c8ff; }
+  .sb-3 .service-cta-inline:hover, .sb-3 .service-num-big { color: #ff9f57; }
+  .sb-4 .service-cta-inline:hover, .sb-4 .service-num-big { color: #ff4d6d; }
+  .sb-5 .service-cta-inline:hover, .sb-5 .service-num-big { color: #c457ff; }
+  .sb-6 .service-cta-inline:hover, .sb-6 .service-num-big { color: #57ffd4; }
 
-  .pcard-featured .pcard-inner { aspect-ratio: 16/9; }
-  .pcard-featured .pcard-letter { font-size: 10rem; }
-  .pcard-featured .pcard-title { font-size: 2rem; }
-  .pcard.hidden { display: none; }
+  /* PROCESS SECTION */
+  .process-section { padding: 100px 48px; background: var(--bg2); }
+  .process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 64px; }
+  .process-step {
+    padding: 48px 36px; background: var(--bg);
+    border: 1px solid var(--border); position: relative;
+    transition: all 0.4s var(--ease-out);
+  }
+  .process-step:hover { background: var(--bg3); transform: translateY(-4px); border-color: rgba(184,255,87,0.15); }
+  .process-step-num {
+    font-size: clamp(4rem, 6vw, 7rem); font-weight: 800;
+    color: rgba(255,255,255,0.05); line-height: 1; margin-bottom: 24px;
+    transition: color 0.4s;
+  }
+  .process-step:hover .process-step-num { color: rgba(184,255,87,0.08); }
+  .process-step h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; }
+  .process-step p { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); line-height: 1.7; }
+  .process-connector {
+    position: absolute; top: 52px; right: -1px;
+    width: 20px; height: 1px; background: var(--accent);
+    z-index: 1; opacity: 0; transition: opacity 0.3s;
+  }
+  .process-step:not(:last-child):hover .process-connector { opacity: 1; }
 
-  .empty-state { grid-column: 1/-1; text-align:center; padding:80px 20px; font-family:var(--font-mono); font-size:0.85rem; color:var(--muted); display:none; }
-  .empty-state.show { display:block; }
-  .empty-state span { font-size:2rem; display:block; margin-bottom:16px; }
+  /* FAQ */
+  .faq-section { padding: 100px 48px; }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 64px; }
+  .faq-item {
+    padding: 36px 40px; border: 1px solid var(--border);
+    cursor: pointer; transition: all 0.3s;
+  }
+  .faq-item:hover { border-color: rgba(184,255,87,0.15); background: var(--bg2); }
+  .faq-q { font-size: 1rem; font-weight: 700; margin-bottom: 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .faq-toggle { font-size: 1.4rem; color: var(--accent); flex-shrink: 0; transition: transform 0.3s; }
+  .faq-item.open .faq-toggle { transform: rotate(45deg); }
+  .faq-a { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease-out), margin-top 0.3s; }
+  .faq-item.open .faq-a { max-height: 200px; margin-top: 16px; }
 
-  .collab-banner { position: relative; z-index: 1; margin: 0 48px 80px; background: var(--bg2); border: 1px solid var(--border); padding: 64px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; transition: border-color 0.3s; }
-  .collab-banner:hover { border-color: rgba(184,255,87,0.2); }
-  .collab-banner h3 { font-size: clamp(1.4rem, 2.5vw, 2.2rem); font-weight: 800; margin-bottom: 12px; }
-  .collab-banner p { font-family:var(--font-mono); font-size:0.82rem; color:var(--muted); line-height:1.7; max-width:480px; }
-
-  @media(max-width:1024px){ .projects-masonry{grid-template-columns:repeat(2,1fr)} }
-  @media(max-width:768px){ .projects-hero,.projects-main,.filter-bar{padding-left:24px;padding-right:24px} .projects-masonry{grid-template-columns:1fr} .collab-banner{margin:0 24px 60px;padding:40px 32px;grid-template-columns:1fr;gap:24px} .hero-meta{flex-direction:column;align-items:flex-start} }
+  @media(max-width:1024px){
+    .services-hero-grid{grid-template-columns:1fr; gap:40px}
+    .service-block{grid-template-columns:1fr}
+    .service-block-left{border-right:none; border-bottom:1px solid var(--border)}
+    .process-grid{grid-template-columns:repeat(2,1fr)}
+    .faq-grid{grid-template-columns:1fr}
+  }
+  @media(max-width:768px){
+    .services-hero,.services-full,.process-section,.faq-section{padding-left:24px;padding-right:24px}
+    .service-block-left,.service-block-right{padding:40px 28px}
+    .process-grid{grid-template-columns:1fr}
+  }
 </style>
 </head>
 <body>
@@ -66,7 +160,7 @@
 <div class="page-transition"></div>
 
 <nav class="nav">
-  <a class="nav-logo" href="index.html"><img src="Voidsoul.png" alt="VØID" style="height:34px;width:34px;object-fit:contain;vertical-align:middle;margin-right:8px;filter:drop-shadow(0 0 6px rgba(184,255,87,0.4))">VØID</a>
+  <a class="nav-logo" href="index.html"><img src="Voidsoul.png" alt="VØID" style="height:36px;width:36px;object-fit:contain;vertical-align:middle;margin-right:8px;filter:drop-shadow(0 0 6px rgba(184,255,87,0.4))">VØID</a>
   <div class="nav-links">
     <a href="index.html">Accueil</a>
     <a href="services.html">Services</a>
@@ -83,36 +177,71 @@
 </nav>
 
 <div class="page">
-  <section class="projects-hero">
-    <p class="page-hero-tag">◈ PORTFOLIO</p>
-    <h1 class="display-lg">MES<br><span class="text-accent">RÉALISATIONS.</span></h1>
-    <div class="hero-meta">
-      <p>Chaque projet est unique. Des serveurs Minecraft aux applications web, en passant par les apps desktop — je construis ce qui m'anime.</p>
-      <div class="project-count"><span id="projectCountDisplay">4</span>projets réalisés</div>
+  <!-- HERO -->
+  <section class="services-hero">
+    <div class="services-hero-grid">
+      <div class="services-hero-left">
+        <p class="page-hero-tag">◈ NOS SERVICES</p>
+        <h1 class="display-lg">CE QUE JE<br><span class="text-accent">SAIS FAIRE.</span></h1>
+      </div>
+      <div class="services-hero-right reveal-right">
+        Six domaines d'expertise, une seule ambition : <strong>créer des choses qui comptent</strong>.<br><br>
+        Que ce soit un site vitrine, une application complexe, une identité visuelle ou un partenariat créatif, je mets tout mon savoir-faire au service de votre projet.
+      </div>
     </div>
   </section>
 
-  <div class="filter-bar">
-    <span class="filter-label">FILTRER PAR</span>
-    <button class="filter-btn active" data-filter="all">Tout voir</button>
-    <button class="filter-btn" data-filter="web">Sites web</button>
-    <button class="filter-btn" data-filter="code">Applications</button>
-    <button class="filter-btn" data-filter="minecraft">Minecraft</button>
-    <button class="filter-btn" data-filter="desktop">Desktop</button>
-    <button class="filter-btn" data-filter="design">Design</button>
-  </div>
+  <div class="divider"></div>
 
-  <section class="projects-main">
-    <div class="projects-masonry" id="projectsGrid"></div>
+  <!-- SERVICE BLOCKS -->
+  <section class="services-full" id="servicesContainer"></section>
+
+  <!-- PROCESS -->
+  <section class="process-section">
+    <p class="section-label reveal">Comment on travaille</p>
+    <div class="process-grid" id="processGrid"></div>
   </section>
 
-  <div class="collab-banner reveal">
-    <div>
-      <h3>Tu as un projet ambitieux ?</h3>
-      <p>Je suis ouvert aux collaborations, projets freelance et idées qui sortent de l'ordinaire. Startups, particuliers, autres devs — parlons-en.</p>
+  <!-- FAQ -->
+  <section class="faq-section">
+    <p class="section-label reveal">Questions fréquentes</p>
+    <div class="faq-grid">
+      <div class="faq-item reveal" data-hover>
+        <div class="faq-q">Quels sont vos délais de livraison ? <span class="faq-toggle">+</span></div>
+        <p class="faq-a">Un site vitrine : 2-4 semaines. Un projet complet (branding + web) : 4-8 semaines. Une application web : selon la complexité, de 6 à 16 semaines. On vous donne un planning précis au démarrage.</p>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:0.1s" data-hover>
+        <div class="faq-q">Vous travaillez avec quels budgets ? <span class="faq-toggle">+</span></div>
+        <p class="faq-a">On ne travaille pas en dessous de 2 000€ — pas par snobisme, mais parce que sous ce seuil, on ne peut pas faire du bon travail. La plupart de nos projets se situent entre 4 000€ et 25 000€.</p>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:0.05s" data-hover>
+        <div class="faq-q">Est-ce que je garde les droits sur les créations ? <span class="faq-toggle">+</span></div>
+        <p class="faq-a">Oui, totalement. À la livraison finale et après paiement complet, tous les droits de propriété intellectuelle vous sont transférés. Vous êtes propriétaire à 100% de ce qu'on crée pour vous.</p>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:0.15s" data-hover>
+        <div class="faq-q">Proposez-vous du white-label ? <span class="faq-toggle">+</span></div>
+        <p class="faq-a">Oui. On travaille régulièrement en sous-traitance pour d'autres agences. Dans ce cas, on s'adapte à vos process, on respecte la confidentialité, et on ne mentionne jamais notre nom sur le projet.</p>
+      </div>
+      <div class="faq-item reveal" data-hover>
+        <div class="faq-q">Que se passe-t-il après la livraison ? <span class="faq-toggle">+</span></div>
+        <p class="faq-a">On reste disponibles. On propose des contrats de maintenance mensuel qui incluent les mises à jour, la surveillance, et un quota d'heures de développement. Ou juste de la facture au besoin.</p>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:0.1s" data-hover>
+        <div class="faq-q">Comment se déroule le premier contact ? <span class="faq-toggle">+</span></div>
+        <p class="faq-a">Envoyez-nous un message via le formulaire de contact ou par email. On vous recontacte sous 24h pour organiser un appel découverte de 30 minutes — sans engagement et sans présentation commerciale forcée.</p>
+      </div>
     </div>
-    <a href="contact.html" class="btn btn-primary">Démarrer <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 15L15 3M15 3H7M15 3V11" stroke="currentColor" stroke-width="1.5"/></svg></a>
-  </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="text-align:center; border-top:1px solid var(--border)">
+    <p class="section-label reveal" style="justify-content:center; margin-bottom:32px">Un projet en tête ?</p>
+    <h2 class="display-md reveal" style="margin-bottom:40px">On est prêts à l'entendre.</h2>
+    <div class="reveal" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="contact.html" class="btn btn-primary">Nous contacter <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 15L15 3M15 3H7M15 3V11" stroke="currentColor" stroke-width="1.5"/></svg></a>
+      <a href="projets.html" class="btn btn-outline">Voir nos projets →</a>
+    </div>
+  </section>
 
   <footer class="footer"></footer>
 </div>
@@ -120,120 +249,66 @@
 <script src="data.js"></script>
 <script src="main.js"></script>
 <script>
-  /* ── PROJECT MODAL ── */
-  const modalOverlay = document.createElement('div');
-  modalOverlay.id = 'projModal';
-  modalOverlay.style.cssText = `
-    position:fixed;inset:0;z-index:8000;display:none;align-items:center;justify-content:center;
-    background:rgba(7,7,13,0.92);backdrop-filter:blur(12px);padding:24px;cursor:auto;
-  `;
-  modalOverlay.innerHTML = `
-    <div id="projModalInner" style="
-      background:var(--bg2);border:1px solid var(--border);max-width:680px;width:100%;
-      position:relative;overflow:hidden;animation:fadeUp 0.4s var(--ease-out);
-    ">
-      <div id="projModalHeader" style="height:280px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
-        <div id="projModalLetter" style="font-size:10rem;font-weight:800;color:rgba(255,255,255,0.07);letter-spacing:-0.05em;user-select:none;"></div>
-        <img id="projModalImg" src="" alt="" style="position:absolute;max-width:40%;max-height:55%;object-fit:contain;opacity:0.9;filter:drop-shadow(0 0 30px rgba(0,0,0,0.7));display:none;">
-        <button id="projModalClose" style="position:absolute;top:20px;right:20px;background:none;border:1px solid var(--border);color:var(--white);width:36px;height:36px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s;">✕</button>
-        <div id="projModalStatus" style="position:absolute;top:20px;left:20px;font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;padding:4px 10px;background:rgba(184,255,87,0.15);border:1px solid rgba(184,255,87,0.4);color:var(--accent);display:none;"></div>
-      </div>
-      <div style="padding:40px 48px 48px;">
-        <div id="projModalTags" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;"></div>
-        <h2 id="projModalTitle" style="font-size:2rem;font-weight:800;margin-bottom:16px;line-height:1.1;"></h2>
-        <p id="projModalDesc" style="font-family:var(--font-mono);font-size:0.85rem;color:var(--muted);line-height:1.8;margin-bottom:32px;"></p>
-        <div style="display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border);">
-          <span id="projModalYear" style="font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);"></span>
-          <a href="https://github.com/V0idSoulmc" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.8rem;padding:12px 24px;">Voir sur GitHub →</a>
-        </div>
-      </div>
-    </div>`;
-  document.body.appendChild(modalOverlay);
-
-  function openModal(p) {
-    const header = document.getElementById('projModalHeader');
-    header.style.background = `linear-gradient(135deg,${p.color1},${p.color2})`;
-    document.getElementById('projModalLetter').textContent = p.letter;
-    const img = document.getElementById('projModalImg');
-    if (p.image) { img.src = p.image; img.alt = p.title; img.style.display = 'block'; }
-    else { img.style.display = 'none'; }
-    const status = document.getElementById('projModalStatus');
-    if (p.status) { status.textContent = p.status; status.style.display = 'block'; }
-    else { status.style.display = 'none'; }
-    document.getElementById('projModalTitle').textContent = p.title;
-    document.getElementById('projModalDesc').textContent = p.description;
-    document.getElementById('projModalYear').textContent = p.year;
-    document.getElementById('projModalTags').innerHTML = p.tags.map(t =>
-      `<span style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;padding:4px 10px;border:1px solid var(--muted2);color:var(--muted);">${t}</span>`
-    ).join('');
-    modalOverlay.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    modalOverlay.style.display = 'none';
-    document.body.style.overflow = '';
-  }
-
-  document.getElementById('projModalClose').addEventListener('click', closeModal);
-  modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-  /* ── GRID RENDER ── */
-  const grid = document.getElementById('projectsGrid');
-  const countDisplay = document.getElementById('projectCountDisplay');
-  const filterBtns = document.querySelectorAll('.filter-btn');
-
-  function renderProjects(filter = 'all') {
-    if (!window.DATA || !grid) return;
-    grid.innerHTML = '';
-    const projects = filter === 'all' ? DATA.projects : DATA.projects.filter(p => p.category === filter);
-    if (countDisplay) countDisplay.textContent = projects.length;
-
-    if (projects.length === 0) {
-      grid.innerHTML = '<div class="empty-state show"><span>◌</span>Aucun projet dans cette catégorie.</div>';
-      return;
-    }
-
-    projects.forEach((p, i) => {
-      const featured = i === 0 && filter === 'all';
-      const imgHTML = p.image ? `<img class="pcard-logo" src="${p.image}" alt="${p.title}">` : '';
-      const statusHTML = p.status ? `<div class="pcard-status">${p.status}</div>` : '';
-      const card = document.createElement('div');
-      card.className = `pcard ${featured?'pcard-featured':''}`;
-      card.dataset.category = p.category;
-      card.dataset.id = p.id;
-      card.style.cssText = `grid-column:${featured?'1/3':'auto'};transition-delay:${(i*0.06).toFixed(2)}s;cursor:pointer;`;
-      card.setAttribute('data-hover', '');
-      card.innerHTML = `
-        <div class="pcard-inner" style="background:linear-gradient(135deg,${p.color1},${p.color2})">
-          <div class="pcard-letter">${p.letter}</div>
-          ${imgHTML}
-        </div>
-        <div class="pcard-overlay">
-          <div class="pcard-tags">${p.tags.map(t=>`<span class="pcard-tag">${t}</span>`).join('')}</div>
-          <h3 class="pcard-title">${p.title}</h3>
-          <p class="pcard-desc">${p.description}</p>
-        </div>
-        <span class="pcard-year">${p.year}</span>
-        ${statusHTML}
-        <span class="pcard-arrow" style="color:var(--accent)">↗</span>`;
-      card.addEventListener('click', () => openModal(p));
-      grid.appendChild(card);
+  /* Inject service blocks */
+  const sbColors = ['sb-1','sb-2','sb-3','sb-4','sb-5','sb-6'];
+  const container = document.getElementById('servicesContainer');
+  if (container && window.DATA) {
+    DATA.services.forEach((s, i) => {
+      container.innerHTML += `
+        <div class="service-block ${sbColors[i]} reveal" id="${s.id}" style="transition-delay:${(i*0.07).toFixed(2)}s">
+          <div class="service-block-left" data-num="${s.num}">
+            <div>
+              <p class="service-num-big">${s.num} — SERVICE</p>
+              <div class="service-icon-big">${s.icon}</div>
+              <h2 class="service-title-big">${s.title}</h2>
+              <p class="service-desc-big">${s.description}</p>
+              <div class="service-tech-list">
+                ${s.tech.map(t => `<span class="service-tech-tag">${t}</span>`).join('')}
+              </div>
+            </div>
+            <a href="contact.html" class="service-cta-inline">Démarrer un projet avec ce service →</a>
+          </div>
+          <div class="service-block-right">
+            <h4>Ce qu'on inclut</h4>
+            <ul class="feature-list">
+              ${s.features.map(f => `<li class="feature-item"><span class="feature-dot"></span>${f}</li>`).join('')}
+            </ul>
+          </div>
+        </div>`;
     });
-
-    if (window.reObserveReveal) reObserveReveal();
   }
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderProjects(btn.dataset.filter);
+  /* Inject process steps */
+  const pgrid = document.getElementById('processGrid');
+  if (pgrid && window.DATA) {
+    DATA.process.forEach((p, i) => {
+      pgrid.innerHTML += `
+        <div class="process-step reveal" style="transition-delay:${(i*0.1).toFixed(2)}s" data-hover>
+          <div class="process-step-num">${p.step}</div>
+          <h3>${p.title}</h3>
+          <p>${p.desc}</p>
+          <div class="process-connector"></div>
+        </div>`;
+    });
+  }
+
+  /* FAQ accordion */
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
     });
   });
 
-  renderProjects('all');
+  /* Anchor scroll for service IDs */
+  if (window.reObserveReveal) reObserveReveal();
+  if (location.hash) {
+    setTimeout(() => {
+      const target = document.querySelector(location.hash);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 600);
+  }
 </script>
 </body>
 </html>
