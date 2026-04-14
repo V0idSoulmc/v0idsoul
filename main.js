@@ -228,17 +228,18 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Contact</h4>
+          <h4>Retrouve-moi</h4>
           <ul>
-            <li><a href="mailto:hello@void-studio.fr">hello@void-studio.fr</a></li>
-            <li><a href="#">Québec, Canada</a></li>
+            <li><a href="https://github.com/V0idSoulmc" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="#">Discord</a></li>
+            <li><a href="#">LinkedIn</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
         <p class="footer-copy">© ${new Date().getFullYear()} VØID — Tous droits réservés</p>
         <div class="footer-socials">
-          <a href="#">GitHub</a>
+          <a href="https://github.com/V0idSoulmc" target="_blank" rel="noopener">GitHub</a>
           <a href="#">Discord</a>
           <a href="#">LinkedIn</a>
         </div>
