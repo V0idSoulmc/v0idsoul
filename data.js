@@ -6,8 +6,7 @@ window.DATA = {
   studio: {
     name: "VØID",
     tagline: "Je fais du bruit.",
-    email: "hello@void-studio.fr",
-    phone: "+1 514 000-0000",
+    github: "https://github.com/V0idSoulmc",
     address: "Québec, Canada",
     founded: 2023,
     description: "Développeur & créatif freelance. Je construis des expériences digitales — seul, mais sans compromis sur la qualité."
@@ -100,7 +99,7 @@ window.DATA = {
       year: 2024,
       color1: "#0a0a2d", color2: "#15153d",
       letter: "RH",
-      image: "RHQuebec.png",
+      image: "RH_Que_bec.png",
       description: "Tableau de bord RH pour jeunes entreprises québécoises. Gestion des employés, documents et paie — simple et accessible."
     },
     {
