@@ -310,8 +310,10 @@
   });
 
   /* Form validation & submit */
-  form && form.addEventListener('submit', e => {
+  form && form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // Validation des champs requis
     const required = form.querySelectorAll('[required]');
     let valid = true;
     required.forEach(field => {
@@ -323,15 +325,51 @@
     });
     if (!valid) return;
 
+    // Préparation de l'UI
     submitBtn.classList.add('loading');
     submitBtn.textContent = 'Envoi en cours…';
 
-    // Simulate send (replace with real API call)
-    setTimeout(() => {
+    // Récupération des données
+    const formData = new FormData(form);
+
+    // URL Formspree (remplace par la tienne si différente)
+    const FORMSPREE_URL = 'https://formspree.io/f/xwvaoldn';
+
+    try {
+      const response = await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (!response.ok) throw new Error('Erreur réseau');
+
+      // Succès : afficher le message de confirmation
       formContainer.style.opacity = '0';
       formContainer.style.transform = 'translateY(-20px)';
       formContainer.style.transition = 'all 0.4s ease';
+
       setTimeout(() => {
         formContainer.style.display = 'none';
         formSuccess.classList.add('show');
-        formSuccess.style.animation = 'fadeUp 0.6s var(--ease-out) forwards'
+        formSuccess.style.animation = 'fadeUp 0.6s var(--ease-out) forwards';
+      }, 400);
+
+    } catch (error) {
+      console.error('Erreur envoi formulaire:', error);
+      submitBtn.classList.remove('loading');
+      submitBtn.textContent = 'Erreur, réessayer';
+      submitBtn.style.background = 'var(--accent2)';
+
+      // Réinitialise après 3 secondes
+      setTimeout(() => {
+        submitBtn.textContent = 'Envoyer le message';
+        submitBtn.style.background = '';
+      }, 3000);
+    }
+  });
+</script>
+</body>
+</html>
